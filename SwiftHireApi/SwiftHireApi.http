@@ -1,0 +1,6 @@
+@SwiftHireApi_HostAddress = http://localhost:5232
+
+GET {{SwiftHireApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
