@@ -177,3 +177,4 @@
 /Users/macbradley/SwiftHire/SwiftHireApi/obj/Debug/net10.0/SwiftHireApi.pdb
 /Users/macbradley/SwiftHire/SwiftHireApi/obj/Debug/net10.0/SwiftHireApi.genruntimeconfig.cache
 /Users/macbradley/SwiftHire/SwiftHireApi/obj/Debug/net10.0/ref/SwiftHireApi.dll
+/Users/macbradley/SwiftHire/SwiftHireApi/obj/Debug/net10.0/SwiftHireApi.sourcelink.json
