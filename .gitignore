@@ -1,0 +1,22 @@
+# ── Secrets ───────────────────────────────────────────────
+SwiftHireApi/appsettings.Development.json
+
+# ── .NET ──────────────────────────────────────────────────
+**/bin/
+**/obj/
+*.user
+*.suo
+.vs/
+*.DotSettings.user
+
+# ── Node / React ──────────────────────────────────────────
+node_modules/
+swifthire-client/dist/
+swifthire-client/.env
+swifthire-client/.env.local
+
+# ── OS ────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+CLAUDE.md

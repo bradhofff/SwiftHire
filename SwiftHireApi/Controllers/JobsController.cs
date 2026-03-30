@@ -8,28 +8,34 @@ namespace SwiftHireApi.Controllers;
 [Route("api/jobs")]
 public class JobsController : ControllerBase
 {
-    private readonly IJobRepository _jobRepository;
+    private readonly IAdzunaService _adzuna;
 
-    public JobsController(IJobRepository jobRepository)
+    public JobsController(IAdzunaService adzuna)
     {
-        _jobRepository = jobRepository;
+        _adzuna = adzuna;
     }
 
     /// <summary>Search jobs with filters.</summary>
     [HttpPost("search")]
     public async Task<IActionResult> Search([FromBody] JobSearchFiltersDto filters)
     {
-        var result = await _jobRepository.SearchAsync(filters);
-        return Ok(result);
+        var result = await _adzuna.SearchAsync(filters);
+        // Return shape the frontend expects: { jobs, totalCount, page, pageSize }
+        return Ok(new
+        {
+            jobs = result.Items,
+            totalCount = result.TotalCount,
+            page = result.Page,
+            pageSize = result.PageSize,
+        });
     }
 
     /// <summary>Get a single job by ID.</summary>
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetById(int id)
+    public IActionResult GetById(int id)
     {
-        var job = await _jobRepository.GetByIdAsync(id);
-        if (job is null) return NotFound();
-        return Ok(job);
+        // TODO: Fetch from DB once SQL Server is wired up
+        return NotFound();
     }
 
     /// <summary>Save a job to the user's pipeline.</summary>

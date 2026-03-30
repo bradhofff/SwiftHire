@@ -98,7 +98,7 @@ export default function JobCard({ job, selected, onClick, mode = 'recommended' }
               {job.title}
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '3px', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '12.5px', color: '#6b7280', fontWeight: 500 }}>{job.company}</span>
+              <span style={{ fontSize: '12.5px', color: '#6b7280', fontWeight: 500 }}>{job.companyName}</span>
               {(job.tags || []).map((tag, i) => (
                 <span
                   key={i}

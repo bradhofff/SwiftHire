@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { mockJobs } from '../data/mockJobs.js'
 import { getJobs } from '../services/api.js'
 
 const defaultFilters = {
@@ -26,8 +25,8 @@ const defaultFilters = {
 }
 
 export function useJobs() {
-  const [jobs, setJobs] = useState(mockJobs)
-  const [loading, setLoading] = useState(false)
+  const [jobs, setJobs] = useState([])        // empty array, never undefined
+  const [loading, setLoading] = useState(true) // start true so UI shows spinner
   const [error, setError] = useState(null)
   const [filters, setFilters] = useState(defaultFilters)
 
@@ -36,12 +35,12 @@ export function useJobs() {
     setError(null)
     try {
       const data = await getJobs(currentFilters)
-      // API returns paged result with Items array
-      setJobs(data.items ?? data ?? mockJobs)
+      // Backend returns { jobs: [], totalCount, page, pageSize }
+      setJobs(data.jobs ?? [])
     } catch (err) {
-      console.warn('API unavailable, using mock data:', err.message)
-      setJobs(mockJobs)
-      setError(null) // suppress error — fallback gracefully
+      console.warn('API unavailable:', err.message)
+      setJobs([])
+      setError('Could not load jobs. Make sure the backend is running.')
     } finally {
       setLoading(false)
     }

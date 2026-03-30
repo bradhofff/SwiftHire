@@ -3,16 +3,8 @@ import TopBar from '../components/layout/TopBar.jsx'
 import JobCard from '../components/jobs/JobCard.jsx'
 import LeBresumonPanel from '../components/orion/OrionPanel.jsx'
 import { usePipeline } from '../hooks/usePipeline.js'
-import { mockJobs } from '../data/mockJobs.js'
 
 const SUB_TABS = ['Applied', 'Interviewing', 'Offer Received', 'Rejected', 'Archived']
-
-// For demo: give mock jobs some applied statuses
-const mockAppliedJobs = mockJobs.map((job, i) => ({
-  ...job,
-  status: i < 3 ? 'Applied' : i === 3 ? 'Interviewing' : i === 4 ? 'Offer Received' : i === 5 ? 'Rejected' : null,
-  dateApplied: 'Mar 15, 2026',
-})).filter((j) => j.status !== null)
 
 export default function Applied() {
   const { savedJobs, fetchPipeline } = usePipeline()
@@ -23,10 +15,9 @@ export default function Applied() {
     fetchPipeline()
   }, [])
 
-  // Use mock data if pipeline returns nothing
   const jobs = savedJobs.length > 0
     ? savedJobs.map((sj) => ({ ...sj.job, status: sj.status, dateApplied: sj.dateApplied }))
-    : mockAppliedJobs
+    : []
 
   const filteredJobs = jobs.filter((j) => j.status === subTab)
 
@@ -130,7 +121,7 @@ export default function Applied() {
           ))}
         </div>
 
-        {/* LeBresumon Panel */}
+        {/* OrionPanel */}
         <LeBresumonPanel selectedJob={selectedJob} />
       </div>
     </div>

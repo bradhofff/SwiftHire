@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SwiftHireApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2c71dc8e7244cf16c00e7a88103a8d9a14d058d6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c6f986b72741df3944f0779b3e8f80c7ca1bde8a")]
 [assembly: System.Reflection.AssemblyProductAttribute("SwiftHireApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SwiftHireApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

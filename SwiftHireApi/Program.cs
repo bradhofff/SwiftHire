@@ -3,6 +3,7 @@
 
 using SwiftHireApi.Services;
 using SwiftHireApi.Services.Interfaces;
+using SwiftHireApi.Models.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,9 +42,13 @@ builder.Services.AddCors(options =>
 //     .UseSqlServerStorage(builder.Configuration.GetConnectionString("SwiftHireDb")));
 // builder.Services.AddHangfireServer();
 
+// ── HTTP Clients ──────────────────────────────────────────────────────────────
+builder.Services.AddHttpClient<IAdzunaService, AdzunaService>();
+
 // ── Application Services ──────────────────────────────────────────────────────
-builder.Services.AddScoped<IJobRepository, SqlJobRepository>();
-builder.Services.AddScoped<IJobIngestionService, JobIngestionService>();
+// TODO: Re-enable once SQL Server is wired up
+// builder.Services.AddScoped<IJobRepository, SqlJobRepository>();
+// builder.Services.AddScoped<IJobIngestionService, JobIngestionService>();
 
 // ── Authorization ─────────────────────────────────────────────────────────────
 builder.Services.AddAuthorization();

@@ -5,7 +5,7 @@ export default function LeBresumonPanel({ selectedJob }) {
   const [message, setMessage] = useState('')
 
   const analysis = selectedJob
-    ? `Your background in ${selectedJob.level.toLowerCase()} engineering aligns well with ${selectedJob.company}'s ${selectedJob.title} role. The ${selectedJob.workModel} setup and ${selectedJob.jobType} structure match your stated preferences.`
+    ? `This ${selectedJob.jobType ?? 'role'} position at ${selectedJob.companyName} looks like a strong match. Check the description below for key requirements and use the actions to tailor your application.`
     : null
 
   return (
@@ -59,7 +59,7 @@ export default function LeBresumonPanel({ selectedJob }) {
               <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#cbd5e1', marginBottom: '4px' }}>
                 {selectedJob.title}
               </div>
-              <div style={{ fontSize: '11.5px', color: '#64748b' }}>@ {selectedJob.company}</div>
+              <div style={{ fontSize: '11.5px', color: '#64748b' }}>@ {selectedJob.companyName}</div>
             </div>
 
             {/* AI Analysis */}
