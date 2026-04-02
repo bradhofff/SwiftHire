@@ -2,6 +2,12 @@ namespace SwiftHireApi.Models.DTOs;
 
 public class JobSearchFiltersDto
 {
+    /// <summary>Free-text job title / keyword query (maps to Adzuna's "what" param).</summary>
+    public string? Title { get; set; }
+
+    /// <summary>Location string, e.g. "Austin, TX" or "Remote" (maps to Adzuna's "where" param).</summary>
+    public string? Location { get; set; }
+
     public List<string> JobFunctions { get; set; } = new();
 
     public List<string> ExcludedTitles { get; set; } = new();

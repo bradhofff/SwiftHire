@@ -29,4 +29,5 @@ public class JobDto
     public string? ApplyUrl { get; set; }
     public string? AtsSource { get; set; }
     public string? Status { get; set; }
+    public string? Description { get; set; }
 }

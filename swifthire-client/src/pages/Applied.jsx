@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import TopBar from '../components/layout/TopBar.jsx'
 import JobCard from '../components/jobs/JobCard.jsx'
-import LeBresumonPanel from '../components/orion/OrionPanel.jsx'
+import LeBresumonPanel from '../components/lebresumon/LeBresumonPanel.jsx'
 import { usePipeline } from '../hooks/usePipeline.js'
 
 const SUB_TABS = ['Applied', 'Interviewing', 'Offer Received', 'Rejected', 'Archived']
@@ -121,7 +121,7 @@ export default function Applied() {
           ))}
         </div>
 
-        {/* OrionPanel */}
+        {/* LeBresumonPanel */}
         <LeBresumonPanel selectedJob={selectedJob} />
       </div>
     </div>

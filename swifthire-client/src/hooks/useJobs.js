@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { getJobs } from '../services/api.js'
 
 const defaultFilters = {
+  title: '',
+  location: '',
   jobFunctions: [],
   excludedTitles: [],
   jobTypes: [],

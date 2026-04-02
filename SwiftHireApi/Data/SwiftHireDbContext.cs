@@ -10,6 +10,8 @@ public class SwiftHireDbContext : DbContext
     public DbSet<Job> Jobs => Set<Job>();
     public DbSet<Company> Companies => Set<Company>();
     public DbSet<SavedJob> SavedJobs => Set<SavedJob>();
+    public DbSet<User> Users => Set<User>();
+    public DbSet<Resume> Resumes => Set<Resume>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -35,6 +37,21 @@ public class SwiftHireDbContext : DbContext
         {
             entity.HasIndex(s => s.UserId);
             entity.HasIndex(s => s.JobId);
+        });
+
+        // User indexes + precision
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(u => u.UserId);
+            entity.HasIndex(u => u.Email).IsUnique();
+            entity.Property(u => u.SalaryMin).HasPrecision(18, 2);
+            entity.Property(u => u.SalaryMax).HasPrecision(18, 2);
+        });
+
+        // Resume indexes
+        modelBuilder.Entity<Resume>(entity =>
+        {
+            entity.HasIndex(r => r.UserId);
         });
     }
 }

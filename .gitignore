@@ -15,6 +15,9 @@ swifthire-client/dist/
 swifthire-client/.env
 swifthire-client/.env.local
 
+# ── Uploads ───────────────────────────────────────────────
+SwiftHireApi/wwwroot/uploads/
+
 # ── OS ────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db

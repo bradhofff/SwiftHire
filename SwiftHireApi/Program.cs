@@ -1,9 +1,10 @@
 // SwiftHire API — Entry point for the ASP.NET Core Web API.
 // Configures services, middleware, CORS, Swagger, and the request pipeline.
 
+using Microsoft.EntityFrameworkCore;
+using SwiftHireApi.Data;
 using SwiftHireApi.Services;
 using SwiftHireApi.Services.Interfaces;
-using SwiftHireApi.Models.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,25 +31,27 @@ builder.Services.AddCors(options =>
 });
 
 // ── Database ──────────────────────────────────────────────────────────────────
-// TODO: builder.Services.AddDbContext<SwiftHireDbContext>(options =>
-//     options.UseSqlServer(builder.Configuration.GetConnectionString("SwiftHireDb")));
+builder.Services.AddDbContext<SwiftHireDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // ── Hangfire ──────────────────────────────────────────────────────────────────
-// TODO: Add Hangfire
+// TODO: Add Hangfire once DB is stable
 // builder.Services.AddHangfire(config => config
 //     .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
 //     .UseSimpleAssemblyNameTypeSerializer()
 //     .UseRecommendedSerializerSettings()
-//     .UseSqlServerStorage(builder.Configuration.GetConnectionString("SwiftHireDb")));
+//     .UseSqlServerStorage(builder.Configuration.GetConnectionString("DefaultConnection")));
 // builder.Services.AddHangfireServer();
 
 // ── HTTP Clients ──────────────────────────────────────────────────────────────
 builder.Services.AddHttpClient<IAdzunaService, AdzunaService>();
+builder.Services.AddHttpClient("Anthropic"); // generic client for Claude API calls
 
 // ── Application Services ──────────────────────────────────────────────────────
-// TODO: Re-enable once SQL Server is wired up
-// builder.Services.AddScoped<IJobRepository, SqlJobRepository>();
-// builder.Services.AddScoped<IJobIngestionService, JobIngestionService>();
+builder.Services.AddScoped<IJobRepository, SqlJobRepository>();
+builder.Services.AddScoped<IJobIngestionService, JobIngestionService>();
+builder.Services.AddScoped<IResumeStorageService, ResumeStorageService>();
+builder.Services.AddSingleton<MatchScoringService>();
 
 // ── Authorization ─────────────────────────────────────────────────────────────
 builder.Services.AddAuthorization();
@@ -63,6 +66,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseCors("SwiftHireClient");
 app.UseAuthorization();
 app.MapControllers();

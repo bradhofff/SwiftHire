@@ -63,11 +63,17 @@ public class AdzunaService : IAdzunaService
             "sort_by=date",
         };
 
-        // Keyword query — use job functions or a broad default
-        var what = filters.JobFunctions.Count > 0
-            ? Uri.EscapeDataString(string.Join(" ", filters.JobFunctions))
-            : "software+engineer";
+        // Keyword query — Title takes priority, then JobFunctions, then a safe default
+        var what = !string.IsNullOrWhiteSpace(filters.Title)
+            ? Uri.EscapeDataString(filters.Title.Trim())
+            : filters.JobFunctions.Count > 0
+                ? Uri.EscapeDataString(string.Join(" ", filters.JobFunctions))
+                : "software+engineer";
         parts.Add($"what={what}");
+
+        // Location filter ("where" param)
+        if (!string.IsNullOrWhiteSpace(filters.Location))
+            parts.Add($"where={Uri.EscapeDataString(filters.Location.Trim())}");
 
         // Job type filters
         if (filters.JobTypes.Count > 0)
@@ -105,6 +111,7 @@ public class AdzunaService : IAdzunaService
         JobType = MapContractTime(job.ContractTime, job.ContractType),
         Tags = job.Category?.Label is not null ? new List<string> { job.Category.Label } : new(),
         Posted = FormatPostedTime(job.Created),
+        Description = job.Description,
     };
 
     private static string? MapContractTime(string? contractTime, string? contractType)
@@ -172,6 +179,9 @@ public class AdzunaService : IAdzunaService
 
         [JsonPropertyName("contract_time")]
         public string? ContractTime { get; set; }
+
+        [JsonPropertyName("description")]
+        public string? Description { get; set; }
     }
 
     private class AdzunaCompany

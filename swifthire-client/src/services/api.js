@@ -28,4 +28,16 @@ export const getProfile = () =>
 export const saveProfile = (profile) =>
   api.put('/profile', profile).then((r) => r.data)
 
+// ── Resume ──────────────────────────────────────────────────────────────────
+export const getResumes = () =>
+  api.get('/resume').then((r) => r.data)
+
+export const uploadResume = (formData) =>
+  // Do NOT set Content-Type manually — axios must auto-generate it with the
+  // multipart boundary, otherwise the server can't parse the request body.
+  api.post('/resume/upload', formData).then((r) => r.data)
+
+export const updateResumeDetails = (id, body) =>
+  api.patch(`/resume/${id}/details`, body).then((r) => r.data)
+
 export default api
